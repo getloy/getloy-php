@@ -36,23 +36,20 @@ class Gateway
         return $this->getloyToken;
     }
 
-  /**
-   * Register a payment provider
-   * @param string $paymentMethod Payment method identifier.
-   * @param array $config Configuration for the payment method.
-   * @return boolean True if the registration completed successfully.
-   * @throws Exception If the provided payment method is unsupported or the payment method
-   *                   configuration is incomplete.
-   */
+    /**
+     * Register a payment provider
+     * @param string $paymentMethod Payment method identifier.
+     * @param array $config Configuration for the payment method.
+     * @return boolean True if the registration completed successfully.
+     * @throws Exception If the provided payment method is unsupported or the payment method
+     *                   configuration is incomplete.
+     */
     public function registerPaymentProvider(string $paymentMethod, array $config): bool
     {
-        try {
-            $this->paymentProviders[$paymentMethod] = PaymentProviders::paymentProviderFactory(
-                $paymentMethod,
-                $config
-            );
-        } catch (Exception $exception) {
-        }
+        $this->paymentProviders[$paymentMethod] = PaymentProviders::paymentProviderFactory(
+            $paymentMethod,
+            $config
+        );
         return true;
     }
 

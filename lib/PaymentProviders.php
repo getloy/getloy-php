@@ -21,7 +21,7 @@ class PaymentProviders
      * Creates a GetloyPaymentProvider object for the specified provider.
      * @param string $paymentMethod Payment method identifier.
      * @param array $config Configuration for the payment method.
-     * @return GetloyPaymentProvider The payment provider object.
+     * @return PaymentProvider The payment provider object.
      * @throws Exception If the provided payment method is unsupported or the payment method
      *                   configuration is incomplete.
      */

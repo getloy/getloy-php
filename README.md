@@ -1,4 +1,5 @@
 # GetLoy Integration Library for PHP
+[![Latest Stable Version](https://poser.pugx.org/getloy/getloy-php/v/stable)](https://packagist.org/packages/getloy/getloy-php) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/getloy/getloy-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/getloy/getloy-php/?branch=master) [![Total Downloads](https://poser.pugx.org/getloy/getloy-php/downloads)](https://packagist.org/packages/getloy/getloy-php) [![License](https://poser.pugx.org/getloy/getloy-php/license)](https://packagist.org/packages/getloy/getloy-php)
 
 The GetLoy Integration Library provides an easy way to access the GetLoy API from applications 
 written in PHP.

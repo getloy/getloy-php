@@ -17,13 +17,13 @@ class OrderDetails
      *
      * @param float $totalAmount The total order amount.
      * @param string $currency The order currency code.
-     * @param DateTime $orderTimestamp Order timestamp (optional, default is current date/time).
+     * @param \DateTime $orderTimestamp Order timestamp (optional, default is current date/time).
      * @param OrderItems $orderItems Order items collection (optional).
      */
     public function __construct(
         float $totalAmount,
         string $currency,
-        DateTime $orderTimestamp = null,
+        \DateTime $orderTimestamp = null,
         OrderItems $orderItems = null
     ) {
 
