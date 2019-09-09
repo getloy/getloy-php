@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+  <title>GetLoy Payment Integration PHP API Documentation</title>
+
+  <files>
+    <directory>lib</directory>
+  </files>
+
+  <transformer>
+    <target>docs/api</target>
+  </transformer>
+
+  <transformations>
+    <template name="vendor/nelson6e65/phpdoc-vuepress/data/templates/vuepress" />
+  </transformations>
+
+  <parser>
+    <!-- Elements to include in your documentation by visibility:
+         public, protected and private. -->
+    <visibility>public</visibility>
+
+    <!-- Directory where to put the cache. This can be set to any directory.
+         Remember ignore it by Git -->
+    <target>build/api-cache</target>
+  </parser>
+</phpdoc>

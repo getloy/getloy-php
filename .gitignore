@@ -1,3 +1,7 @@
 /.vscode
-/vendor
+/build/
 /composer.lock
+/docs/api/*.md
+/docs/api/.assets/normalization.css
+/docs/api/.vuepress/dist
+/vendor
