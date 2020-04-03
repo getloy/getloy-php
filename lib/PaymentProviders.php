@@ -9,12 +9,16 @@ use Getloy\PaymentProviders\PaymentProviderPipayKh;
 use Getloy\PaymentProviders\PaymentProviderIpay88Kh;
 
 /**
- * Provides factory method to instantiate payment method classes.
+ * Provides payment provider identifiers and a factory method to instantiate payment method classes.
+ * @since 1.0.0
  */
 class PaymentProviders
 {
+    /* Payment provider identifier for PayWay by ABA Bank */
     const PAYWAY_KH = 'payway_kh';
+    /* Payment provider identifier for Pi Pay */
     const PIPAY_KH = 'pipay_kh';
+    /* Payment provider identifier for iPay88 Cambodia */
     const IPAY88_KH = 'ipay88_kh';
 
     /**
@@ -24,6 +28,7 @@ class PaymentProviders
      * @return PaymentProvider The payment provider object.
      * @throws Exception If the provided payment method is unsupported or the payment method
      *                   configuration is incomplete.
+     * @ignore description
      */
     public static function paymentProviderFactory(
         string $paymentMethod,

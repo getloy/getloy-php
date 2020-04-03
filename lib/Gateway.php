@@ -55,7 +55,7 @@ class Gateway
 
     /**
      * Generates JavaScript code for the GetLoy widget.
-     * @param array $options The widget options. Note that string values have to be quoted.
+     * @param array $options The widget options.
      * @return string Widget code (without enclosing <scipt> tag).
      * @throws Exception if $options array does not include the key `payload`.
      */
@@ -67,9 +67,9 @@ class Gateway
         $optionString = '';
         foreach ($options as $option => $value) {
             $optionString .= sprintf(
-                "gl('%s', %s);",
-                addcslashes($option, "'"),
-                $value
+                "gl(%s, %s);",
+                json_encode($option),
+                json_encode($value)
             );
         }
         return sprintf(
@@ -85,7 +85,7 @@ class Gateway
     /**
      * Generates HTML code for the GetLoy widget.
      * @param string $transactionId Payment transaction identifier.
-     * @param string $paymentMethod Payment method identifier.
+     * @param string $paymentMethod Payment method identifier (see {@see \Getloy\PaymentProviders}).
      * @param OrderDetails $order Order details.
      * @param PayeeDetails $payee Payee details.
      * @param string $callbackUrl URL to call from the GetLoy backend to notify the custom web
@@ -121,7 +121,7 @@ class Gateway
             $paymentMethodVariant
         );
         $widgetOptions = [
-            'payload' => json_encode($payload),
+            'payload' => $payload,
             'success_callback' => sprintf(
                 "function(){window.location='%s';}",
                 addcslashes($successUrl, "'")
