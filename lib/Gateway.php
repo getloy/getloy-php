@@ -150,7 +150,7 @@ class Gateway
      * @param string $paymentMethodVariant Payment method variant name (optional).
      * @return string Widget payload (JSON string)
      */
-    protected function widgetPayload(
+    public function widgetPayload(
         string $transactionId,
         string $paymentMethod,
         OrderDetails $order,
@@ -186,13 +186,26 @@ class Gateway
     /**
      * Parse and validate the body of a callback request.
      *
-     * @param string $callbackBody
+     * @param string $jsonCallback
      * @return CallbackDetails
      */
-    public function parseCallback(string $callbackBody): CallbackDetails
+    public function parseCallback(string $jsonCallback): CallbackDetails
     {
         $callbackDetails = new CallbackDetails($this);
-        $callbackDetails->parseCallback($callbackBody);
+        $callbackDetails->parseCallback($jsonCallback);
+        return $callbackDetails;
+    }
+
+    /**
+     * Validate a callback request.
+     *
+     * @param array $callbackBody
+     * @return CallbackDetails
+     */
+    public function validateCallback(array $callbackBody): CallbackDetails
+    {
+        $callbackDetails = new CallbackDetails($this);
+        $callbackDetails->validateCallback($callbackBody);
         return $callbackDetails;
     }
 

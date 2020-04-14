@@ -31,32 +31,55 @@ class CallbackDetails
     /**
      * Parse and validate the body of a callback request.
      *
-     * @param string $callbackBody Raw callback body received.
+     * @param string $callbackBody Raw callback body.
      * @throws Exception If the body is invalid.
      */
-    public function parseCallback(string $callbackBody)
+    public function parseCallback(string $callbackBody): void
     {
-        $parsedData = json_decode($callbackBody, true);
-        if (is_null($parsedData)) {
+        $callbackData = json_decode($callbackBody, true);
+        if (is_null($callbackData)) {
             throw new Exception('Malformed callback body!');
         }
+        $this->validateCallback($callbackData);
+    }
+
+    /**
+     * Validate a parsed callback request.
+     *
+     * @param array $callbackBody Parsed callback body.
+     * @throws Exception If the body is invalid.
+     */
+    public function validateCallback(array $callbackBody): void
+    {
         $valueMap = [
-            'transactionId' => 'tid',
-            'status' => 'status',
-            'amountPaid' => 'amount_paid',
-            'currency' => 'currency',
+            'transactionId' => [
+              'name' =>'tid',
+              'type' => 'string',
+            ],
+            'status' => [
+              'name' =>'status',
+              'type' => 'string',
+            ],
+            'amountPaid' => [
+              'name' =>'amount_paid',
+              'type' => 'float',
+            ],
+            'currency' => [
+              'name' =>'currency',
+              'type' => 'string',
+            ],
         ];
 
-        foreach ($valueMap as $propertyName => $callbackKey) {
-            if (!array_key_exists($callbackKey, $parsedData)) {
+        foreach ($valueMap as $callbackKey => $def) {
+            if (!array_key_exists($callbackKey, $callbackBody)) {
                 throw new Exception(
                     sprintf('Callback received without required key "%s"!', $callbackKey)
                 );
             }
-            $this->$propertyName = $parsedData[$callbackKey];
+            $this->setProperty($def['name'], $callbackBody[$callbackKey], $def['type']);
         }
-        if (!array_key_exists('auth_hash_ext', $parsedData)
-            || !$this->validateHash($parsedData['auth_hash_ext'])
+        if (!array_key_exists('auth_hash_ext', $callbackBody)
+            || !$this->validateHash($callbackBody['auth_hash_ext'])
         ) {
             throw new Exception('Callback hash validation failed!');
         }
@@ -84,6 +107,25 @@ class CallbackDetails
         );
 
         return $hash === $hashRecalc;
+    }
+
+    /**
+     * Convert and set property value.
+     *
+     * @param string $propName
+     * @param string $value
+     * @param string $type
+     */
+    protected function setProperty(string $propName, string $value, string $type = 'string')
+    {
+        switch ($type) {
+            case 'float':
+                $this->$propName = (float) $value;
+                break;
+
+            default:
+                $this->$propName = $value;
+        }
     }
 
     /**
