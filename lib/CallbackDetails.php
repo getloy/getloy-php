@@ -70,13 +70,13 @@ class CallbackDetails
             ],
         ];
 
-        foreach ($valueMap as $callbackKey => $def) {
-            if (!array_key_exists($callbackKey, $callbackBody)) {
+        foreach ($valueMap as $propName => $def) {
+            if (!array_key_exists($def['name'], $callbackBody)) {
                 throw new Exception(
-                    sprintf('Callback received without required key "%s"!', $callbackKey)
+                    sprintf('Callback received without required key "%s"!', $def['name'])
                 );
             }
-            $this->setProperty($def['name'], $callbackBody[$callbackKey], $def['type']);
+            $this->setProperty($propName, $callbackBody[$def['name']], $def['type']);
         }
         if (!array_key_exists('auth_hash_ext', $callbackBody)
             || !$this->validateHash($callbackBody['auth_hash_ext'])
